@@ -1,0 +1,25 @@
+NAME        : Ravi Nihalani
+ASU ID      : 1210448145
+
+The program implements Morris worm’s host discovery functionality.
+The program outputs a list of all host names known and possibly trusted by the current host.
+
+The implementation can be run by just running the ./discovery command line interface as a single executable.
+
+The code has been developed in Java in the MorrisMain.java file.
+The program looks for hosts in the following locations:
+--> /etc/hosts
+--> ~/.ssh/config for each user and /etc/ssh/ssh_config. Note that you only need to extract hosts from the Host and HostName parameters
+--> ~/.ssh/authorized_keys for each user
+--> ~/.ssh/known_hosts for each user and /etc/ssh/ssh_known_hosts
+
+Brief summary of the how the above requirement has been achieved in the program:
+
+> From the /etc/hosts file we just retreive multiple hostnames listed in front of the IP addresses. Note that the addresses can be IPv4 / IPv6 both.
+> From the the config and ssh_config file, we hunt for hostnames in front of the HostName and Host parameter
+> Hostnames are retreived from the authorized_keys file using various parameters like permitopen,from,etc.
+> The hostnames in the known_hosts file have been seperated by , and also can be individually placed.
+
+The hostnames are the ones that are placed after '@' symbol in the files.Also, ! can be ignored and similarly *. can be ignored.
+
+Note IP addresses are never printed in the output and that while looking for the above files, if a file is not found in the respective directory, we just handle it in try catch block and move to next available file.
